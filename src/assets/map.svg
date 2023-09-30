@@ -66,8 +66,8 @@
                 bbox = selectedElement.getBBox();
                 nMinX = bbox.x - ((bbox.x + bbox.width) - svgWidth + bbox.x);
                 nMinY = bbox.y - ((bbox.y + bbox.height) - svgHeight + bbox.y);
-                nMaxX = -bbox.x; //bbox.x + ((bbox.x + bbox.width) - svgWidth);
-                nMaxY = -bbox.y; //(bbox.y + bbox.height) - svgHeight;
+                nMaxX = -bbox.x;
+                nMaxY = -bbox.y;
             }
           }
         }
