@@ -6,35 +6,56 @@
     <title>Map</title>
   </head>
   <body>
-    <div class="navigation-bar">
-      <div class="navigation-bar__logo">
-        <svg-icon
-          name="logo"
-          color="white"
-          width="28px"
-          height="50px"
-        ></svg-icon>
-      </div>
-      <div class="navigation-bar__links">
-        <a href="/" class="navigation-bar__links-item">
+    <main class="app">
+      <div class="navigation-bar">
+        <div class="navigation-bar__logo">
           <svg-icon
-            name="marker"
-            color="#F0552E"
-            width="20px"
-            height="20px"
-          ></svg-icon>
-        </a>
-        <a href="/list" class="navigation-bar__links-item">
-          <svg-icon
-            name="grid"
+            name="logo"
             color="white"
-            width="20px"
-            height="20px"
+            width="28px"
+            height="50px"
           ></svg-icon>
-        </a>
+        </div>
+        <div class="navigation-bar__links">
+          <a href="/" class="navigation-bar__links-item">
+            <svg-icon
+              name="marker"
+              color="#F0552E"
+              width="20px"
+              height="20px"
+            ></svg-icon>
+          </a>
+          <a href="/list" class="navigation-bar__links-item">
+            <svg-icon
+              name="grid"
+              color="white"
+              width="20px"
+              height="20px"
+            ></svg-icon>
+          </a>
+        </div>
+        <div class="navigation-bar__button">
+          <app-button color="orange">
+            <div slot="icon">
+              <svg-icon
+                name="download"
+                color="white"
+                width="20px"
+                height="20px"
+              ></svg-icon>
+            </div>
+          </app-button>
+        </div>
       </div>
-      <div class="navigation-bar__button"></div>
-    </div>
+
+      <div class="map">
+        <object data="/src/assets/map.svg" attr123="123"></object>
+      </div>
+
+      <div class="filters">
+        <div class="filters__head">//</div>
+      </div>
+    </main>
 
     <script type="module" src="/src/js/index.js"></script>
   </body>

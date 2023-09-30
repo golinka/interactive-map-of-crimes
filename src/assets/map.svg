@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1656 900"
+     onload="makeDraggable(evt)" preserveAspectRatio="xMidYMid slice">
+    
+    <style>
+      .static {
+        cursor: not-allowed;
+      }
+      .draggable, .draggable-group {
+        cursor: move;
+      }
+    </style>
+    
+    <script id="svgScript" type="text/javascript"><![CDATA[
+      
+      function makeDraggable(evt) {
+        var svg = evt.target;
+        svg.setAttribute('viewBox', `0 0 ${svg.clientWidth} ${svg.clientHeight}`);
+
+        svg.addEventListener('mousedown', startDrag, { passive: false });
+        svg.addEventListener('mousemove', drag, { passive: false });
+        svg.addEventListener('mouseup', endDrag, { passive: false });
+        svg.addEventListener('mouseleave', endDrag, { passive: false });
+        svg.addEventListener('touchstart', startDrag, { passive: false });
+        svg.addEventListener('touchmove', drag, { passive: false });
+        svg.addEventListener('touchend', endDrag, { passive: false });
+        svg.addEventListener('touchleave', endDrag, { passive: false });
+        svg.addEventListener('touchcancel', endDrag, { passive: false });
+
+        var svgWidth = svg.scrollWidth;
+        var svgHeight = svg.scrollHeight;
+
+        var selectedElement, offset, transform, bbox, confined, nMinX, nMaxX, nMinY, nMaxY;
+
+        function getMousePosition(evt) {
+          var CTM = svg.getScreenCTM();
+          if (evt.touches) { evt = evt.touches[0]; }
+          return {
+            x: (evt.clientX - CTM.e) / CTM.a,
+            y: (evt.clientY - CTM.f) / CTM.d
+          };
+        }
+
+        function startDrag(evt) {
+          if (evt.target.parentElement.classList.contains('draggable')) {
+            selectedElement = evt.target.parentElement;
+            offset = getMousePosition(evt);
+
+            // Make sure the first transform on the element is a translate transform
+            var transforms = selectedElement.transform.baseVal;
+
+            if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+              // Create an transform that translates by (0, 0)
+              var translate = svg.createSVGTransform();
+              translate.setTranslate(0, 0);
+              selectedElement.transform.baseVal.insertItemBefore(translate, 0);
+            }
+
+            // Get initial translation
+            transform = transforms.getItem(0);
+            offset.x -= transform.matrix.e;
+            offset.y -= transform.matrix.f;
+
+            confined = selectedElement.classList.contains('confine');
+            if (confined) {
+                bbox = selectedElement.getBBox();
+                nMinX = bbox.x - ((bbox.x + bbox.width) - svgWidth + bbox.x);
+                nMinY = bbox.y - ((bbox.y + bbox.height) - svgHeight + bbox.y);
+                nMaxX = -bbox.x; //bbox.x + ((bbox.x + bbox.width) - svgWidth);
+                nMaxY = -bbox.y; //(bbox.y + bbox.height) - svgHeight;
+            }
+          }
+        }
+
+        function drag(evt) {
+          if (selectedElement) {
+            evt.preventDefault();
+
+            var coord = getMousePosition(evt);
+            var dx = coord.x - offset.x;
+            var dy = coord.y - offset.y;
+
+            if (confined) {
+                if (dx < nMinX) { dx = nMinX; }
+                else if (dx > nMaxX) { dx = nMaxX; }
+                if (dy < nMinY) { dy = nMinY; }
+                else if (dy > nMaxY) { dy = nMaxY; }
+            }
+
+            transform.setTranslate(dx, dy);
+          }
+        }
+
+        function endDrag(evt) {
+          selectedElement = false;
+        }
+      }
+     
+    ]]> </script>
+
+    <g class="draggable confine">
+      <!-- <image x="0" y="0" width="828" height="450" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
+      <!-- <image x="0" y="0" width="1656" height="900" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
+      <!-- <image x="-414" y="-225" width="2484" height="1350" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
+      <image x="-414" y="-225" width="2484" height="1350" href="map.png" />
+      <ellipse id="ellipse" fill="red" cx="100" cy="100" rx="30" ry="30"></ellipse>
+      <!-- <image x="-828" y="-450" width="3312" height="1800" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
+    </g>
+</svg>
