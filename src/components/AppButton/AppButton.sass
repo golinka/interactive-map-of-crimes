@@ -1,0 +1,29 @@
+@import "../../sass/_variables"
+
+.button
+    cursor: pointer
+    display: flex
+    align-items: center
+    border: none
+    background-color: transparent
+    transition: all 0.3s ease
+
+    &__icon
+        & + .button__text
+            margin-left: 10px
+
+    &--color
+        &-orange
+            color: $white
+            background-color: $primary
+
+    &--size
+        &-small
+            padding: 4px 12px
+            height: 26px
+            border-radius: 50px
+
+        &-medium
+            padding: 9px 10px
+            height: 40px
+            border-radius: 80px
