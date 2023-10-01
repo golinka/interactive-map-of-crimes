@@ -190,11 +190,8 @@
     ]]> </script>
 
     <g class="draggable confine">
-      <!-- <image x="0" y="0" width="828" height="450" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
-      <!-- <image x="0" y="0" width="1656" height="900" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
-      <!-- <image x="-414" y="-225" width="2484" height="1350" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
+      <!-- <image x="0" y="0" width="1656" height="900" href="map.png" /> -->
       <image x="-414" y="-225" width="2484" height="1350" href="map.png" />
-      <ellipse id="ellipse" fill="red" cx="100" cy="100" rx="30" ry="30"></ellipse>
-      <!-- <image x="-828" y="-450" width="3312" height="1800" href="https://imageupload.io/ib/j9BdftdSYLeFK76_1696007828.png" /> -->
+      <!-- <image x="-828" y="-450" width="3312" height="1800" href="map.png" /> -->
     </g>
 </svg>
