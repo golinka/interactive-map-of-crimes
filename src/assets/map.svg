@@ -3,6 +3,93 @@
      onload="makeDraggable(evt)" preserveAspectRatio="xMidYMid slice">
     
     <style>
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Thin.woff2") format("woff2");
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Thin.woff") format("woff");
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-UltraLight.woff2") format("woff2");
+        font-weight: 200;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-UltraLight.woff") format("woff");
+        font-weight: 200;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Light.woff2") format("woff2");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Light.woff") format("woff");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Regular.woff2") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Regular.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Medium.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Medium.woff") format("woff");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Bold.woff2") format("woff2");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap; }
+
+      @font-face {
+        font-family: 'e-Ukraine';
+        src: url("../assets/fonts/e-ukraine/e-Ukraine-Bold.woff") format("woff");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap; }
+
+      * {
+        font-family: 'e-Ukraine';
+      }
       .static {
         cursor: not-allowed;
       }
@@ -12,11 +99,20 @@
     </style>
     
     <script id="svgScript" type="text/javascript"><![CDATA[
+
+      var topLeftLatLon = [52.64701, 20.01434]
+      var bottomLeftLatLon = [43.91221, 20.01434]
+      var topRightLatLon = [52.64701, 44.62032]
+      var bottomRightLatLon = [43.91221, 44.62032]
       
       function makeDraggable(evt) {
         var svg = evt.target;
-        svg.setAttribute('viewBox', `0 0 ${svg.clientWidth} ${svg.clientHeight}`);
+        var svgWidth = svg.scrollWidth;
+        var svgHeight = svg.scrollHeight;
+        var groul = evt.target.querySelector('.draggable');
+        var selectedElement, offset, transform, bbox, confined, nMinX, nMaxX, nMinY, nMaxY;
 
+        svg.setAttribute('viewBox', `0 0 ${svg.clientWidth} ${svg.clientHeight}`);
         svg.addEventListener('mousedown', startDrag, { passive: false });
         svg.addEventListener('mousemove', drag, { passive: false });
         svg.addEventListener('mouseup', endDrag, { passive: false });
@@ -26,11 +122,6 @@
         svg.addEventListener('touchend', endDrag, { passive: false });
         svg.addEventListener('touchleave', endDrag, { passive: false });
         svg.addEventListener('touchcancel', endDrag, { passive: false });
-
-        var svgWidth = svg.scrollWidth;
-        var svgHeight = svg.scrollHeight;
-
-        var selectedElement, offset, transform, bbox, confined, nMinX, nMaxX, nMinY, nMaxY;
 
         function getMousePosition(evt) {
           var CTM = svg.getScreenCTM();
@@ -63,11 +154,11 @@
 
             confined = selectedElement.classList.contains('confine');
             if (confined) {
-                bbox = selectedElement.getBBox();
-                nMinX = bbox.x - ((bbox.x + bbox.width) - svgWidth + bbox.x);
-                nMinY = bbox.y - ((bbox.y + bbox.height) - svgHeight + bbox.y);
-                nMaxX = -bbox.x;
-                nMaxY = -bbox.y;
+              bbox = selectedElement.getBBox();
+              nMinX = bbox.x - ((bbox.x + bbox.width) - svgWidth + bbox.x);
+              nMinY = bbox.y - ((bbox.y + bbox.height) - svgHeight + bbox.y);
+              nMaxX = -bbox.x;
+              nMaxY = -bbox.y;
             }
           }
         }
@@ -81,10 +172,10 @@
             var dy = coord.y - offset.y;
 
             if (confined) {
-                if (dx < nMinX) { dx = nMinX; }
-                else if (dx > nMaxX) { dx = nMaxX; }
-                if (dy < nMinY) { dy = nMinY; }
-                else if (dy > nMaxY) { dy = nMaxY; }
+              if (dx < nMinX) { dx = nMinX; }
+              else if (dx > nMaxX) { dx = nMaxX; }
+              if (dy < nMinY) { dy = nMinY; }
+              else if (dy > nMaxY) { dy = nMaxY; }
             }
 
             transform.setTranslate(dx, dy);
