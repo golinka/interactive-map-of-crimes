@@ -1,3 +1,5 @@
+import { SIZES } from "../consts";
+
 const TOP_LEFT_MAP_LAT_LON = [52.64701, 20.01434];
 const BOTTOM_LEFT_MAP_LAT_LON = [43.91221, 20.01434];
 const TOP_RIGHT_MAP_LAT_LON = [52.64701, 44.62032];
@@ -20,20 +22,21 @@ export function addCircle({ x, y, amount, parentEl, size, color }) {
   circle.setAttribute("stroke", "white");
   circle.setAttribute("stroke-width", "1");
   circle.setAttribute("opacity", "0.6");
+  group.appendChild(circle);
 
   // Add text
-  const text = document.createElementNS(svgNS, "text");
-  text.setAttribute("x", x);
-  text.setAttribute("y", y);
-  text.setAttribute("text-anchor", "middle");
-  text.setAttribute("alignment-baseline", "middle");
-  text.setAttribute("fill", "white");
-  text.setAttribute("font-size", "12px");
-  text.textContent = amount;
+  if (amount) {
+    const text = document.createElementNS(svgNS, "text");
+    text.setAttribute("x", x);
+    text.setAttribute("y", y);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("alignment-baseline", "middle");
+    text.setAttribute("fill", "white");
+    text.setAttribute("font-size", "12px");
+    text.textContent = amount;
+    group.appendChild(text);
+  }
 
-  // Add elems to the group
-  group.appendChild(circle);
-  group.appendChild(text);
   parentEl.appendChild(group);
 }
 
@@ -117,9 +120,28 @@ export function getAvargeEventGroupPosition(events) {
   return { lat: lat / events.length, lon: lon / events.length };
 }
 
-export function getCircleSize(groups) {
-  // const 
-  return { lat: lat / events.length, lon: lon / events.length };
+export function getGroupSizesMapping(group, offsetPercent = 0.2) {
+  const lengths = group
+    .map((innerArr, index) => ({ index, length: innerArr.length }))
+    .sort((a, b) => a.length - b.length);
+
+  const median = (lengths[Math.floor(lengths.length / 2)] || {}).length;
+  const offset = Math.ceil(median * offsetPercent);
+
+  return lengths.reduce((acc, _item, i) => {
+    const length = group[i].length;
+    switch (true) {
+      case length > median + offset:
+        acc[i] = SIZES.LARGE;
+        break;
+      case length >= median - offset:
+        acc[i] = SIZES.MEDIUM;
+        break;
+      default:
+        acc[i] = SIZES.SMALL;
+    }
+    return acc;
+  }, {});
 }
 
 export function hasCoordinates(event) {
