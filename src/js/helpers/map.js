@@ -1,11 +1,11 @@
-const topLeftLatLon = [52.64701, 20.01434];
-const bottomLeftLatLon = [43.91221, 20.01434];
-const topRightLatLon = [52.64701, 44.62032];
-const bottomRightLatLon = [43.91221, 44.62032];
+const TOP_LEFT_MAP_LAT_LON = [52.64701, 20.01434];
+const BOTTOM_LEFT_MAP_LAT_LON = [43.91221, 20.01434];
+const TOP_RIGHT_MAP_LAT_LON = [52.64701, 44.62032];
+const BOTTOM_RIGHT_MAP_LAT_LON = [43.91221, 44.62032];
 
 const EARTH_RADIUS = 6371;
 
-export function addCircle({ amount, parentEl, x, y }) {
+export function addCircle({ x, y, amount, parentEl, size, color }) {
   const svgNS = "http://www.w3.org/2000/svg";
 
   // Create a group
@@ -15,8 +15,8 @@ export function addCircle({ amount, parentEl, x, y }) {
   const circle = document.createElementNS(svgNS, "circle");
   circle.setAttribute("cx", x);
   circle.setAttribute("cy", y);
-  circle.setAttribute("r", "40");
-  circle.setAttribute("fill", "#1A1A1A");
+  circle.setAttribute("r", size / 2);
+  circle.setAttribute("fill", color);
   circle.setAttribute("stroke", "white");
   circle.setAttribute("stroke-width", "1");
   circle.setAttribute("opacity", "0.6");
@@ -28,7 +28,7 @@ export function addCircle({ amount, parentEl, x, y }) {
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("alignment-baseline", "middle");
   text.setAttribute("fill", "white");
-  text.setAttribute("font-size", "30px");
+  text.setAttribute("font-size", "12px");
   text.textContent = amount;
 
   // Add elems to the group
@@ -48,12 +48,14 @@ export function getPosition(lat, lon) {
   const latOrder = 0;
   const lonOrder = 1;
   const latPixelsRation =
-    svgImageHeight / (topLeftLatLon[latOrder] - bottomLeftLatLon[latOrder]);
+    svgImageHeight /
+    (TOP_LEFT_MAP_LAT_LON[latOrder] - BOTTOM_LEFT_MAP_LAT_LON[latOrder]);
   const lonPixelsRation =
-    svgImageWidth / (topRightLatLon[lonOrder] - bottomLeftLatLon[lonOrder]);
+    svgImageWidth /
+    (TOP_RIGHT_MAP_LAT_LON[lonOrder] - BOTTOM_LEFT_MAP_LAT_LON[lonOrder]);
 
-  const diffLatFromXLat = topLeftLatLon[latOrder] - lat;
-  const diffLonFromXLon = Math.abs(topLeftLatLon[lonOrder] - lon);
+  const diffLatFromXLat = TOP_LEFT_MAP_LAT_LON[latOrder] - lat;
+  const diffLonFromXLon = Math.abs(TOP_LEFT_MAP_LAT_LON[lonOrder] - lon);
 
   const markerX = svgImageX + lonPixelsRation * diffLonFromXLon;
   const markerY = svgImageY + latPixelsRation * diffLatFromXLat;
@@ -112,6 +114,11 @@ export function getAvargeEventGroupPosition(events) {
     (acc, event) => ({ lat: acc.lat + event.lat, lon: acc.lon + event.lon }),
     { lat: 0, lon: 0 }
   );
+  return { lat: lat / events.length, lon: lon / events.length };
+}
+
+export function getCircleSize(groups) {
+  // const 
   return { lat: lat / events.length, lon: lon / events.length };
 }
 
