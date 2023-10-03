@@ -108,8 +108,15 @@ export function groupEventsByLocation(events, delta) {
 }
 
 export function getAvargeEventGroupPosition(events) {
-  const { lat, lon } = events.reduce((acc, event) => ({ lat: acc.lat + event.lat, lon: acc.lon + event.lon }), { lat: 0, lon: 0 })
-  return { lat: lat / events.length, lon: lon / events.length }
+  const { lat, lon } = events.reduce(
+    (acc, event) => ({ lat: acc.lat + event.lat, lon: acc.lon + event.lon }),
+    { lat: 0, lon: 0 }
+  );
+  return { lat: lat / events.length, lon: lon / events.length };
+}
+
+export function hasCoordinates(event) {
+  return event.lat && event.lon;
 }
 
 export default {};

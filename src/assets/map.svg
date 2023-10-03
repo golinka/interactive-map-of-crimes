@@ -96,6 +96,9 @@
       .draggable, .draggable-group {
         cursor: move;
       }
+      svg text {
+        user-select: none;
+      }
     </style>
     
     <script id="svgScript" type="text/javascript"><![CDATA[

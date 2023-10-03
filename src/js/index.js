@@ -6,6 +6,7 @@ import "../components/AppButton/AppButton";
 import {
   addCircle,
   getPosition,
+  hasCoordinates,
   groupEventsByLocation,
   getAvargeEventGroupPosition,
 } from "./helpers/map";
@@ -21,11 +22,13 @@ const cityGroups = Object.keys(events).map((city) => ({
 
 cityGroups.forEach((city) => {
   const events = city.crimes[31] || [];
-  const cityEventsGroups = groupEventsByLocation(events, 10);
-  console.warn("cityEventsGroups >>", cityEventsGroups);
+  const eventsWithCoordinates = events.filter(hasCoordinates);
+  const cityEventsGroups = groupEventsByLocation(eventsWithCoordinates, 100);
   cityEventsGroups.forEach((group) => {
-    const groupPosition = getAvargeEventGroupPosition(group);
-    const { x, y } = getPosition(groupPosition.lat, groupPosition.lon);
-    addCircle({ amount: cityEventsGroups.length, parentEl: groupEl, x, y });
+    if (group.length) {
+      const groupPosition = getAvargeEventGroupPosition(group);
+      const { x, y } = getPosition(groupPosition.lat, groupPosition.lon);
+      addCircle({ amount: group.length, parentEl: groupEl, x, y });
+    }
   });
 });
