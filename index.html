@@ -70,9 +70,26 @@
       <div class="filters">
         <div class="filters__head">
           <div class="filters__head-field">
-            <input type="text" />
+            <app-field placeholder="Search" value="My text">
+              <div slot="icon" class="h-flex-vertical-center">
+                <app-icon
+                  name="search"
+                  color="#999999"
+                  width="24px"
+                  height="24px"
+                ></app-icon>
+              </div>
+            </app-field>
           </div>
-          <div class="filters__head-button">//</div>
+          <div class="filters__head-button">
+            <app-icon
+              name="filters"
+              color="#F0552E"
+              width="27px"
+              height="27px"
+            ></app-icon>
+            Filters
+          </div>
         </div>
       </div>
     </main>

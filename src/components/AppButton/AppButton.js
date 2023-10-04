@@ -25,10 +25,15 @@ class SvgIcon extends AppComponent {
     this.buttonText = this.shadowRoot.querySelector(".app-button__text");
   }
 
-  setState() {
-    const size = this.getAttribute("size") || "medium";
-    const color = this.getAttribute("color") || "orange";
+  get size() {
+    return this.getAttribute("size") || "medium";
+  }
 
+  get color() {
+    return this.getAttribute("color") || "orange";
+  }
+
+  setState() {
     if (!this.hasSlot("icon")) {
       this.buttonIcon.remove();
     }
@@ -37,8 +42,8 @@ class SvgIcon extends AppComponent {
       this.buttonText.remove();
     }
 
-    this.button.classList.add(`app-button--size-${size}`);
-    this.button.classList.add(`app-button--color-${color}`);
+    this.button.classList.add(`app-button--size-${this.size}`);
+    this.button.classList.add(`app-button--color-${this.color}`);
   }
 
   connectedCallback() {

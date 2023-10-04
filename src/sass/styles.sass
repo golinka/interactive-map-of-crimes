@@ -1,5 +1,6 @@
 @import "_reset"
 @import "_variables"
+@import "_holsters"
 @import "_fonts"
 @import "../components/AppButton/AppButton"
 
@@ -91,6 +92,29 @@ body
 .filters
     width: 490px
     height: 100%
+    background-color: $white
+
+    &__head
+        display: flex
+        align-items: center
+        padding: 30px 25px 30px 45px
+        border-bottom: 1px solid $grey
+
+        &-field
+            flex-grow: 1
+
+        &-button
+            display: flex
+            flex-direction: column
+            align-items: center
+            font-size: 11px
+            font-weight: 300
+            line-height: 16px
+            color: $primary
+            margin-left: 32px
+
+            app-icon
+                padding: 6px
 
 .navigation-bar
     display: flex

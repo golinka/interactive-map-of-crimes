@@ -3,6 +3,7 @@ import "virtual:svg-icons-register";
 import "./../sass/styles.sass";
 import "../components/AppIcon/AppIcon";
 import "../components/AppButton/AppButton";
+import "../components/AppField/AppField";
 import events from "../_mocks/events.json";
 import names from "../_mocks/names.json";
 import {
