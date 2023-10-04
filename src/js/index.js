@@ -1,7 +1,7 @@
 import { groupBy, flatten } from "lodash";
 import "virtual:svg-icons-register";
 import "./../sass/styles.sass";
-import "../components/SvgIcon/SvgIcon";
+import "../components/AppIcon/AppIcon";
 import "../components/AppButton/AppButton";
 import events from "../_mocks/events.json";
 import names from "../_mocks/names.json";

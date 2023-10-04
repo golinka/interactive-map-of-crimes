@@ -1,8 +1,8 @@
-class SvgIcon extends HTMLElement {
+class AppIcon extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = `
-      <svg aria-hidden="true">
+      <svg aria-hidden="true" class="app-icon">
         <use xlink:href="" fill="" />
       </svg>
     `;
@@ -28,6 +28,6 @@ class SvgIcon extends HTMLElement {
   }
 }
 
-window.customElements.define("svg-icon", SvgIcon);
+window.customElements.define("app-icon", AppIcon);
 
 export default {};

@@ -2,11 +2,11 @@ import AppButtonStyles from "./AppButton.sass?inline";
 
 const template = document.createElement("template");
 template.innerHTML = `
-  <button class="button">
-    <div class="button__icon">
+  <button class="app-button">
+    <div class="app-button__icon">
       <slot name="icon" />
     </div>
-    <div class="button__text">
+    <div class="app-button__text">
       <slot name="text" />
     </div>
   </button>
@@ -24,8 +24,8 @@ class SvgIcon extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.button = this.shadowRoot.querySelector("button");
-    this.buttonIcon = this.shadowRoot.querySelector(".button__icon");
-    this.buttonText = this.shadowRoot.querySelector(".button__text");
+    this.buttonIcon = this.shadowRoot.querySelector(".app-button__icon");
+    this.buttonText = this.shadowRoot.querySelector(".app-button__text");
   }
 
   hasSlot(name) {
@@ -46,8 +46,8 @@ class SvgIcon extends HTMLElement {
       this.buttonText.remove()
     }
 
-    this.button.classList.add(`button--size-${size}`);
-    this.button.classList.add(`button--color-${color}`);
+    this.button.classList.add(`app-button--size-${size}`);
+    this.button.classList.add(`app-button--color-${color}`);
   }
 
   connectedCallback() {
