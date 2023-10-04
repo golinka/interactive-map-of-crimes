@@ -1,3 +1,4 @@
+import AppComponent from "../AppComponent";
 import AppButtonStyles from "./AppButton.sass?inline";
 
 const template = document.createElement("template");
@@ -12,26 +13,16 @@ template.innerHTML = `
   </button>
 `;
 
-class SvgIcon extends HTMLElement {
+class SvgIcon extends AppComponent {
   constructor() {
     super();
 
-    const style = document.createElement("style");
-    style.textContent = AppButtonStyles;
-
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.appendChild(style);
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.appendStyles(template, AppButtonStyles);
 
     this.button = this.shadowRoot.querySelector("button");
     this.buttonIcon = this.shadowRoot.querySelector(".app-button__icon");
     this.buttonText = this.shadowRoot.querySelector(".app-button__text");
-  }
-
-  hasSlot(name) {
-    if (!name) return false;
-    const slot = this.shadowRoot.querySelector(`slot[name="${name}"]`);
-    return slot.assignedElements().length > 0;
   }
 
   setState() {
@@ -39,11 +30,11 @@ class SvgIcon extends HTMLElement {
     const color = this.getAttribute("color") || "orange";
 
     if (!this.hasSlot("icon")) {
-      this.buttonIcon.remove()
+      this.buttonIcon.remove();
     }
 
     if (!this.hasSlot("text")) {
-      this.buttonText.remove()
+      this.buttonText.remove();
     }
 
     this.button.classList.add(`app-button--size-${size}`);
