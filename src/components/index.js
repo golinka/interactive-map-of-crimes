@@ -3,8 +3,9 @@ import "./AppButton/AppButton";
 import "./AppField/AppField";
 import "./AppCheckbox/AppCheckbox";
 import "./AppSelect/AppSelect";
+import "./AppMarkerTypes/AppMarkerTypes";
 import "./AppCategoryFilter/AppCategoryFilter";
 import "./AppSelectFilter/AppSelectFilter";
-import "./AppMarkerTypes/AppMarkerTypes";
+import "./AppFilterResults/AppFilterResults";
 
 export default {};

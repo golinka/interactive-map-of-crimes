@@ -1,5 +1,5 @@
 import AppComponent from "../AppComponent";
-import AppFilterResultsStyles from "./AppCheckbox.sass?inline";
+import AppFilterResultsStyles from "./AppFilterResults.sass?inline";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -22,12 +22,25 @@ class AppFilterResults extends AppComponent {
     );
   }
 
+  static get observedAttributes() {
+    return ["count"];
+  }
+
   get count() {
     return this.getAttribute("count");
   }
 
+  attributeChangedCallback(_name, oldValue) {
+    if (!oldValue) return;
+    this.rerenderCount();
+  }
+
   setState() {
-    if (this.count) this.resultsCount.textContent = this.count;
+    this.rerenderCount();
+  }
+
+  rerenderCount() {
+    this.resultsCount.textContent = this.count;
   }
 
   connectedCallback() {

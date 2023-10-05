@@ -45,11 +45,15 @@ export default class Filters {
     return [...options, this.categoryFilterOptionAll];
   }
 
-  renderResultsBlock(count) {
-    const appFilterResultsEl = document.createElement("app-filter-results");
-    appFilterResultsEl.setAttribute("count", count);
-
-    this.filtersEl.appendChild(appFilterResultsEl);
+  rerenderResults(count) {
+    let appFilterResultsEl = document.querySelector("app-filter-results");
+    if (!appFilterResultsEl) {
+      appFilterResultsEl = document.createElement("app-filter-results");
+      appFilterResultsEl.setAttribute("count", count);
+      this.filtersEl.appendChild(appFilterResultsEl);
+    } else {
+      appFilterResultsEl.setAttribute("count", count);
+    }
   }
 
   render() {
@@ -95,9 +99,10 @@ export default class Filters {
     });
 
     const cityFilterEl = citySelectFilter.render();
-    regionFilterEl.classList.add("h-display-block", "h-mb-35");
+    cityFilterEl.classList.add("h-display-block", "h-mb-35");
     document.querySelector("#filters").appendChild(cityFilterEl);
 
-    this.renderResultsBlock(0);
+    // Results
+    this.rerenderResults(0);
   }
 }
