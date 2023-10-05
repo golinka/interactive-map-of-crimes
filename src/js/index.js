@@ -5,6 +5,7 @@ import "../components/AppIcon/AppIcon";
 import "../components/AppButton/AppButton";
 import "../components/AppField/AppField";
 import "../components/AppCheckbox/AppCheckbox";
+import "../components/AppCategoryFilter/AppCategoryFilter";
 import events from "../_mocks/events.json";
 import names from "../_mocks/names.json";
 import {

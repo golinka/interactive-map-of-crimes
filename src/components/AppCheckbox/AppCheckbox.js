@@ -27,6 +27,10 @@ class AppCheckbox extends AppComponent {
     return this.getAttribute("label");
   }
 
+  get checked() {
+    return this.getAttribute("checked");
+  }
+
   get count() {
     return this.getAttribute("count");
   }
@@ -42,6 +46,7 @@ class AppCheckbox extends AppComponent {
 
     this.checkboxLabel.textContent = this.label;
     this.checkboxCount.textContent = this.count;
+    if (this.checked) this.checkboxInput.setAttribute('checked', '');
   }
 
   connectedCallback() {
