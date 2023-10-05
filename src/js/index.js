@@ -5,6 +5,7 @@ import "../components";
 import events from "../_mocks/events.json";
 import names from "../_mocks/names.json";
 import Filters from "./filters";
+import Map from "./map";
 
 import {
   addCircle,
@@ -34,12 +35,22 @@ const allEvents = flatten(Object.values(events));
 window.allEvents = allEvents;
 const allGroupedEvents = groupBy(allEvents, "affected_type");
 
-const filters = new Filters({ events, names: Array.isArray(names) ? names[0] : (names || {}) });
+const filters = new Filters({
+  events,
+  names: Array.isArray(names) ? names[0] : names || {},
+});
 window.filters = filters;
 
 // MAP
 const svg = document.querySelector("#map").getSVGDocument();
 const groupEl = svg.querySelector("g");
+
+new Map({
+  types: Object.keys(crimeTypes).map((typeId) => ({
+    label: crimeTypes[typeId] || "",
+    color: EVENT_TYPE_COLOR_MAPPING[typeId] || 'black',
+  })),
+});
 
 const crimeTypeIds = Object.keys(crimeTypes).map(Number);
 
