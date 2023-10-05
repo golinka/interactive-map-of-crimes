@@ -26,6 +26,8 @@ class AppCategoryFilter extends AppComponent {
     this.categoryFilterList = this.shadowRoot.querySelector(
       ".app-category-filter__list"
     );
+
+    this.selectedOptions = [];
   }
 
   static get observedAttributes() {
@@ -43,7 +45,10 @@ class AppCategoryFilter extends AppComponent {
   setState() {
     this.renderComponent();
     this.categoryFilterName.textContent = this.name;
-    // this.fieldInput.addEventListener("onchange", this.onInputChange);
+    this.categoryFilterList.addEventListener(
+      "app-checkbox-changed",
+      this.onAppCheckboxChanged.bind(this)
+    );
   }
 
   attributeChangedCallback(name, _oldValue, newValue) {
@@ -56,10 +61,39 @@ class AppCategoryFilter extends AppComponent {
     }
   }
 
+  onAppCheckboxChanged($event) {
+    try {
+      $event.stopPropagation();
+
+      const { key, value } = $event.detail || {};
+      if (this.selectedOptions.find((option) => option.key === key) && !value) {
+        this.selectedOptions = this.selectedOptions.filter(
+          (option) => option.key !== key
+        );
+      } else {
+        this.selectedOptions = [
+          ...(this.selectedOptions || []),
+          { key, value },
+        ];
+      }
+      this.dispatchEvent(
+        new CustomEvent("app-category-filter-change", {
+          composed: true,
+          detail: this.selectedOptions,
+        })
+      );
+    } catch (err) {
+      console.error("AppCategoryFilter: onAppCheckboxChanged - ", err);
+    }
+  }
+
   createAppCheckbox(params) {
     const appCheckbox = document.createElement("app-checkbox");
+    if (typeof params.key !== undefined)
+      appCheckbox.setAttribute("key", params.key);
     if (params.label) appCheckbox.setAttribute("label", params.label);
-    if (params.count) appCheckbox.setAttribute("disabled", params.count);
+    if (typeof params.count !== undefined)
+      appCheckbox.setAttribute("count", params.count);
     if (params.checked) appCheckbox.setAttribute("checked", params.checked);
     if (params.disabled) appCheckbox.setAttribute("disabled", params.disabled);
     return appCheckbox;

@@ -23,6 +23,10 @@ class AppCheckbox extends AppComponent {
     this.checkboxCount = this.shadowRoot.querySelector(".app-checkbox__count");
   }
 
+  get key() {
+    return this.getAttribute("key");
+  }
+
   get label() {
     return this.getAttribute("label");
   }
@@ -36,6 +40,9 @@ class AppCheckbox extends AppComponent {
   }
 
   setState() {
+    if (!this.key)
+      console.error("AppCheckbox: the key attribute must be specified");
+
     if (this.hasAttribute("disabled")) {
       this.checkboxInput.setAttribute("disabled", "");
       this.checkbox.classList.add("app-checkbox--disabled");
@@ -46,7 +53,19 @@ class AppCheckbox extends AppComponent {
 
     this.checkboxLabel.textContent = this.label;
     this.checkboxCount.textContent = this.count;
-    if (this.checked) this.checkboxInput.setAttribute('checked', '');
+    if (this.checked) this.checkboxInput.setAttribute("checked", "");
+
+    this.checkboxInput.addEventListener("change", this.onChanged.bind(this));
+  }
+
+  onChanged($event) {
+    this.dispatchEvent(
+      new CustomEvent("app-checkbox-changed", {
+        bubbles: true,
+        composed: true,
+        detail: { key: this.key, value: $event.currentTarget.checked || false },
+      })
+    );
   }
 
   connectedCallback() {

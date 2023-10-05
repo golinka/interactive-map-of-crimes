@@ -8,6 +8,7 @@ import "../components/AppCheckbox/AppCheckbox";
 import "../components/AppCategoryFilter/AppCategoryFilter";
 import events from "../_mocks/events.json";
 import names from "../_mocks/names.json";
+import Filters from "./filters";
 import {
   addCircle,
   getPosition,
@@ -23,9 +24,6 @@ import {
   SIZES,
 } from "./consts";
 
-const svg = document.querySelector("#map").getSVGDocument();
-const groupEl = svg.querySelector("g");
-
 const [
   {
     affected_type: crimeTypes,
@@ -37,6 +35,31 @@ const [
 
 const allEvents = flatten(Object.values(events));
 window.allEvents = allEvents;
+const allGroupedEvents = groupBy(allEvents, "affected_type");
+
+const categoryFilterOptionAll = {
+  key: -1,
+  label: "All",
+  count: allEvents.length,
+};
+const categoryFiltersOptions = [
+  ...Object.keys(crimeTypes).map((crimeId) => ({
+    key: `${crimeId}`,
+    label: crimeTypes[crimeId],
+    count: (allGroupedEvents[crimeId] || []).length || 0,
+  })),
+  categoryFilterOptionAll,
+];
+new Filters({
+  categoryFilter: {
+    name: "Category",
+    options: categoryFiltersOptions,
+  },
+});
+
+// MAP
+const svg = document.querySelector("#map").getSVGDocument();
+const groupEl = svg.querySelector("g");
 
 const crimeTypeIds = Object.keys(crimeTypes).map(Number);
 // const cityGroups = Object.keys(events).map((city) => ({
@@ -69,8 +92,6 @@ const crimeTypeIds = Object.keys(crimeTypes).map(Number);
 //   }
 // });
 
-const allGroupedEvents = groupBy(allEvents, "affected_type");
-
 for (const crimeTypeId of crimeTypeIds) {
   const eventsColor = EVENT_TYPE_COLOR_MAPPING[crimeTypeId] || "";
   const eventSizeMapping = EVENT_TYPE_SIZE_MAPPING[crimeTypeId];
@@ -99,3 +120,10 @@ for (const crimeTypeId of crimeTypeIds) {
     }
   });
 }
+
+// Filters rendering
+document
+  .querySelector("app-category-filter")
+  .addEventListener("app-category-filter-change", function ($event) {
+    console.log("data > ", $event.detail);
+  });

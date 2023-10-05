@@ -9,9 +9,10 @@
         position: relative
         appearance: none
         background-color: $white
-        color: red
         width: 20px
         height: 20px
+        min-width: 20px
+        min-height: 20px
         border-radius: 4px
         border: 1px solid $grey
         transform: translateY(-0.075em)
@@ -54,7 +55,8 @@
 
     &__count
         @extend .h-text-body-base
-        color: $grey
+        color: $black
+        opacity: 0.3
         margin-left: 12px
 
     &--disabled
