@@ -48,7 +48,6 @@ class AppFilterTags extends AppComponent {
     );
     tagEl.textContent = tag.label;
     if (tag.color) tagEl.style.backgroundColor = tag.color;
-    debugger;
     return tagEl;
   }
 

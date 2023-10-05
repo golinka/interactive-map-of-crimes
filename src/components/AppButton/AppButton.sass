@@ -2,6 +2,7 @@
 
 .app-button
     cursor: pointer
+    width: 100%
     display: flex
     align-items: center
     border: none
@@ -12,10 +13,27 @@
         & + .app-button__text
             margin-left: 10px
 
-    &--color
-        &-orange
+    &__text
+        width: 100%
+        text-align: center
+        transition: all 0.3s ease
+
+    &--type
+        &-primary
             color: $white
             background-color: $primary
+
+        &-secondary
+            color: $black
+            background-color: $white
+            border: 1px solid $black
+
+            &:hover
+                background-color: $black
+
+                .app-button
+                    &__text
+                        color: $white
 
     &--size
         &-small
@@ -27,3 +45,8 @@
             padding: 9px 10px
             height: 40px
             border-radius: 80px
+
+        &-large
+            padding: 12px 10px
+            height: 45px
+            border-radius: 60px

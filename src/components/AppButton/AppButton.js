@@ -29,8 +29,8 @@ class SvgIcon extends AppComponent {
     return this.getAttribute("size") || "medium";
   }
 
-  get color() {
-    return this.getAttribute("color") || "orange";
+  get type() {
+    return this.getAttribute("type") || "primary";
   }
 
   setState() {
@@ -43,7 +43,7 @@ class SvgIcon extends AppComponent {
     }
 
     this.button.classList.add(`app-button--size-${this.size}`);
-    this.button.classList.add(`app-button--color-${this.color}`);
+    this.button.classList.add(`app-button--type-${this.type}`);
   }
 
   connectedCallback() {

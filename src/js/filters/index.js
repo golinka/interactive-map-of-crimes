@@ -61,6 +61,9 @@ export default class Filters {
       { label: "Raped", type: "region" },
       { label: "Raped", type: "city" },
     ]);
+
+    // Button
+    this.renderClearButton();
   }
 
   renderResults(count) {
@@ -85,6 +88,30 @@ export default class Filters {
     } else {
       appFilterTagsEl.setAttribute("tags", JSON.stringify(tags));
     }
+  }
+
+  renderClearButton() {
+    const appButtonEl = document.createElement("app-button");
+    appButtonEl.setAttribute("type", "secondary");
+    appButtonEl.setAttribute("size", "large");
+    appButtonEl.classList.add("h-mb-15", "h-display-block");
+
+    // const appButtonSlotIconEl = document.createElement("div");
+    // appButtonSlotIconEl.setAttribute("slot", "icon");
+
+    // const appButtonIconEl = document.createElement("app-icon");
+    // appButtonIconEl.setAttribute("name", "grid");
+    // appButtonIconEl.setAttribute("width", "20px");
+    // appButtonIconEl.setAttribute("height", "20px");
+
+    const appButtonSlotTextEl = document.createElement("div");
+    appButtonSlotTextEl.setAttribute("slot", "text");
+    appButtonSlotTextEl.textContent = "Clear All Filters";
+
+    // appButtonSlotIconEl.appendChild(appButtonIconEl);
+    // appButtonEl.appendChild(appButtonSlotIconEl);
+    appButtonEl.appendChild(appButtonSlotTextEl);
+    this.filtersEl.appendChild(appButtonEl);
   }
 
   render() {
