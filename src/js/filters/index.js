@@ -1,5 +1,6 @@
 import { flatten, groupBy } from "lodash";
 import CategoryFilter from "./category";
+import SelectFilter from "./select";
 
 export default class Filters {
   constructor({ events, names }) {
@@ -9,6 +10,8 @@ export default class Filters {
 
     // Data
     this.categoryFilterSelectedOptions = [];
+    this.regionFilterSelectedOption = null;
+    this.cityFilterSelectedOption = null;
 
     this.render();
   }
@@ -50,6 +53,7 @@ export default class Filters {
   }
 
   render() {
+    // Category filter
     const categoryFilter = new CategoryFilter({
       name: "Category",
       options: this.categoryFiltersOptions,
@@ -61,8 +65,38 @@ export default class Filters {
     });
 
     const categoryFilterEl = categoryFilter.render();
-    categoryFilterEl.classList.add("h-mb-15");
+    categoryFilterEl.classList.add("h-display-block", "h-mb-35");
     document.querySelector("#filters").appendChild(categoryFilterEl);
+
+    // Region filter
+    const regionSelectFilter = new SelectFilter({
+      name: "Region",
+      options: [{ value: "sumy", label: "Sumy" }],
+      placeholder: "All States",
+    });
+
+    regionSelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
+      this.regionFilterSelectedOption = data;
+    });
+
+    const regionFilterEl = regionSelectFilter.render();
+    regionFilterEl.classList.add("h-display-block", "h-mb-35");
+    document.querySelector("#filters").appendChild(regionFilterEl);
+
+    // City filter
+    const citySelectFilter = new SelectFilter({
+      name: "City / Town",
+      options: [{ value: "konotop", label: "Konopot" }],
+      placeholder: "All Cities / Towns",
+    });
+
+    citySelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
+      this.cityFilterSelectedOption = data;
+    });
+
+    const cityFilterEl = citySelectFilter.render();
+    regionFilterEl.classList.add("h-display-block", "h-mb-35");
+    document.querySelector("#filters").appendChild(cityFilterEl);
 
     this.renderResultsBlock(0);
   }

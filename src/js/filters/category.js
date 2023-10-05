@@ -8,18 +8,17 @@ export default class CategoryFilter extends Filter {
     this.name = name;
     this.options = options;
 
-    this.categoryFilterSelectedOptions = [];
+    this.selectedOptions = [];
   }
 
   render() {
-    console.log("render!!!", this.options);
     this.$el = document.createElement("app-category-filter");
     this.$el.setAttribute("name", this.name);
     this.$el.setAttribute("options", JSON.stringify(this.options));
 
     this.$el.addEventListener(
       "app-category-filter-changed",
-      this.onFilterChanged.bind(this)
+      this.onFilterChanged
     );
 
     return this.$el;
@@ -29,12 +28,9 @@ export default class CategoryFilter extends Filter {
     this.$el.setAttribute(name, data);
   }
 
-  onFilterChanged($event) {
-    this.categoryFilterSelectedOptions = $event.detail || [];
+  onFilterChanged = function ($event) {
+    this.selectedOptions = $event.detail || [];
 
-    this.emit(
-      CategoryFilter.Events.CHANGED,
-      this.categoryFilterSelectedOptions
-    );
-  }
+    this.emit(CategoryFilter.Events.CHANGED, this.selectedOptions);
+  }.bind(this);
 }

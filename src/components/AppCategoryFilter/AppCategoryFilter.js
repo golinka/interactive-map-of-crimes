@@ -88,23 +88,19 @@ class AppCategoryFilter extends AppComponent {
     }
   }.bind(this);
 
-  createAppCheckbox(params) {
+  createAppCheckbox({ key, label, count, checked, disabled } = {}) {
     const appCheckbox = document.createElement("app-checkbox");
-    if (typeof params.key !== undefined)
-      appCheckbox.setAttribute("key", params.key);
-    if (params.label) appCheckbox.setAttribute("label", params.label);
-    if (typeof params.count !== undefined)
-      appCheckbox.setAttribute("count", params.count);
-    if (params.checked) appCheckbox.setAttribute("checked", params.checked);
-    if (params.disabled) appCheckbox.setAttribute("disabled", params.disabled);
+    if (typeof key !== undefined) appCheckbox.setAttribute("key", key);
+    if (label) appCheckbox.setAttribute("label", label);
+    if (typeof count !== undefined) appCheckbox.setAttribute("count", count);
+    if (checked) appCheckbox.setAttribute("checked", checked);
+    if (disabled) appCheckbox.setAttribute("disabled", disabled);
     return appCheckbox;
   }
 
   renderComponent() {
-    this.categoryFilterName.textContent = this.name;
-    this.options.forEach((option) => {
-      this.categoryFilterList.appendChild(this.createAppCheckbox(option));
-    });
+    this.rerenderName();
+    this.rerenderList();
   }
 
   rerenderName() {
@@ -116,12 +112,6 @@ class AppCategoryFilter extends AppComponent {
     this.options.forEach((option) => {
       this.categoryFilterList.appendChild(this.createAppCheckbox(option));
     });
-  }
-
-  onInputChange() {
-    this.dispatchEvent(
-      new CustomEvent("change", { detail: $event.target.value || "" })
-    );
   }
 
   connectedCallback() {
