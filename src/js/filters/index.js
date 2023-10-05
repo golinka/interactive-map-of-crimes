@@ -34,14 +34,12 @@ export default class Filters {
   }
 
   get categoryFiltersOptions() {
-    return [
-      ...Object.keys(this.crimeTypes || []).map((crimeId) => ({
-        key: `${crimeId}`,
-        label: this.crimeTypes[crimeId],
-        count: (allGroupedEvents[crimeId] || []).length || 0,
-      })),
-      this.categoryFilterOptionAll,
-    ];
+    const options = Object.keys(this.crimeTypes || []).map((crimeId) => ({
+      key: `${crimeId}`,
+      label: this.crimeTypes[crimeId],
+      count: (this.allGroupedEvents[crimeId] || []).length || 0,
+    }));
+    return [...options, this.categoryFilterOptionAll];
   }
 
   renderResultsBlock(count) {

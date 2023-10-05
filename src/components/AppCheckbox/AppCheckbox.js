@@ -55,10 +55,10 @@ class AppCheckbox extends AppComponent {
     this.checkboxCount.textContent = this.count;
     if (this.checked) this.checkboxInput.setAttribute("checked", "");
 
-    this.checkboxInput.addEventListener("change", this.onChanged.bind(this));
+    this.checkboxInput.addEventListener("change", this.onChanged);
   }
 
-  onChanged($event) {
+  onChanged = function($event) {
     this.dispatchEvent(
       new CustomEvent("app-checkbox-changed", {
         bubbles: true,
@@ -70,10 +70,14 @@ class AppCheckbox extends AppComponent {
         },
       })
     );
-  }
+  }.bind(this)
 
   connectedCallback() {
     this.setState();
+  }
+
+  disconnectedCallback() {
+    this.checkboxInput.removeEventListener.apply("change", this.onChanged);
   }
 }
 

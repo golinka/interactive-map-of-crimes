@@ -12,7 +12,7 @@ export default class CategoryFilter extends Filter {
   }
 
   render() {
-    console.log("render!!!");
+    console.log("render!!!", this.options);
     this.$el = document.createElement("app-category-filter");
     this.$el.setAttribute("name", this.name);
     this.$el.setAttribute("options", JSON.stringify(this.options));

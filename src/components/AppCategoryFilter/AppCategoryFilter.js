@@ -46,7 +46,7 @@ class AppCategoryFilter extends AppComponent {
     this.categoryFilterName.textContent = this.name;
     this.categoryFilterList.addEventListener(
       "app-checkbox-changed",
-      this.onAppCheckboxChanged.bind(this)
+      this.onAppCheckboxChanged
     );
   }
 
@@ -63,7 +63,7 @@ class AppCategoryFilter extends AppComponent {
     }
   }
 
-  onAppCheckboxChanged($event) {
+  onAppCheckboxChanged = function ($event) {
     try {
       $event.stopPropagation();
 
@@ -87,7 +87,7 @@ class AppCategoryFilter extends AppComponent {
     } catch (err) {
       console.error("AppCategoryFilter: onAppCheckboxChanged - ", err);
     }
-  }
+  }.bind(this);
 
   createAppCheckbox(params) {
     const appCheckbox = document.createElement("app-checkbox");
@@ -132,7 +132,7 @@ class AppCategoryFilter extends AppComponent {
   disconnectedCallback() {
     this.categoryFilterList.removeEventListener(
       "app-checkbox-changed",
-      this.onAppCheckboxChanged.bind(this)
+      this.onAppCheckboxChanged
     );
   }
 }

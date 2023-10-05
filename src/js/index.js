@@ -34,7 +34,7 @@ const allEvents = flatten(Object.values(events));
 window.allEvents = allEvents;
 const allGroupedEvents = groupBy(allEvents, "affected_type");
 
-const filters = new Filters({ events, names });
+const filters = new Filters({ events, names: Array.isArray(names) ? names[0] : (names || {}) });
 window.filters = filters;
 
 // MAP
