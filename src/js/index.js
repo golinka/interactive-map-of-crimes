@@ -1,14 +1,11 @@
 import { groupBy, flatten } from "lodash";
 import "virtual:svg-icons-register";
-import "./../sass/styles.sass";
-import "../components/AppIcon/AppIcon";
-import "../components/AppButton/AppButton";
-import "../components/AppField/AppField";
-import "../components/AppCheckbox/AppCheckbox";
-import "../components/AppCategoryFilter/AppCategoryFilter";
+import "../sass/styles.sass";
+import "../components";
 import events from "../_mocks/events.json";
 import names from "../_mocks/names.json";
 import Filters from "./filters";
+
 import {
   addCircle,
   getPosition,
@@ -37,60 +34,14 @@ const allEvents = flatten(Object.values(events));
 window.allEvents = allEvents;
 const allGroupedEvents = groupBy(allEvents, "affected_type");
 
-const categoryFilterOptionAll = {
-  key: -1,
-  label: "All",
-  count: allEvents.length,
-};
-const categoryFiltersOptions = [
-  ...Object.keys(crimeTypes).map((crimeId) => ({
-    key: `${crimeId}`,
-    label: crimeTypes[crimeId],
-    count: (allGroupedEvents[crimeId] || []).length || 0,
-  })),
-  categoryFilterOptionAll,
-];
-new Filters({
-  categoryFilter: {
-    name: "Category",
-    options: categoryFiltersOptions,
-  },
-});
+const filters = new Filters({ events, names });
+window.filters = filters;
 
 // MAP
 const svg = document.querySelector("#map").getSVGDocument();
 const groupEl = svg.querySelector("g");
 
 const crimeTypeIds = Object.keys(crimeTypes).map(Number);
-// const cityGroups = Object.keys(events).map((city) => ({
-//   name: city,
-//   crimes: groupBy(events[city], "affected_type"),
-// }));
-
-// cityGroups.forEach((city) => {
-//   for (const crimeTypeId of crimeTypeIds) {
-//     const events = city.crimes[crimeTypeId] || [];
-//     const eventsColor = EVENT_TYPE_COLOR_MAPPING[crimeTypeId] || "";
-//     const eventsWithCoordinates = events.filter(hasCoordinates);
-
-//     const cityEventsGroups = groupEventsByLocation(eventsWithCoordinates, 100);
-//     cityEventsGroups.forEach((group) => {
-//       if (group.length) {
-//         const groupPosition = getAvargeEventGroupPosition(group);
-//         const { x, y } = getPosition(groupPosition.lat, groupPosition.lon);
-
-//         addCircle({
-//           x,
-//           y,
-//           amount: group.length,
-//           parentEl: groupEl,
-//           color: eventsColor,
-//           size: 65,
-//         });
-//       }
-//     });
-//   }
-// });
 
 for (const crimeTypeId of crimeTypeIds) {
   const eventsColor = EVENT_TYPE_COLOR_MAPPING[crimeTypeId] || "";
@@ -120,10 +71,3 @@ for (const crimeTypeId of crimeTypeIds) {
     }
   });
 }
-
-// Filters rendering
-document
-  .querySelector("app-category-filter")
-  .addEventListener("app-category-filter-change", function ($event) {
-    console.log("data > ", $event.detail);
-  });

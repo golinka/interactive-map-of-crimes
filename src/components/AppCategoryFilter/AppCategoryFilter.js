@@ -1,4 +1,3 @@
-import { debounce } from "lodash";
 import AppComponent from "../AppComponent";
 import AppCategoryFilterStyles from "./AppCategoryFilter.sass?inline";
 
@@ -53,8 +52,11 @@ class AppCategoryFilter extends AppComponent {
 
   attributeChangedCallback(name, _oldValue, newValue) {
     switch (name) {
+      case "name":
+        this.rerenderName();
+        break;
       case "options":
-        console.log("options >>>", this.options);
+        this.rerenderList();
         break;
       default:
         break;
@@ -65,7 +67,7 @@ class AppCategoryFilter extends AppComponent {
     try {
       $event.stopPropagation();
 
-      const { key, value } = $event.detail || {};
+      const { key, value, label } = $event.detail || {};
       if (this.selectedOptions.find((option) => option.key === key) && !value) {
         this.selectedOptions = this.selectedOptions.filter(
           (option) => option.key !== key
@@ -73,11 +75,11 @@ class AppCategoryFilter extends AppComponent {
       } else {
         this.selectedOptions = [
           ...(this.selectedOptions || []),
-          { key, value },
+          { key, value, label },
         ];
       }
       this.dispatchEvent(
-        new CustomEvent("app-category-filter-change", {
+        new CustomEvent("app-category-filter-changed", {
           composed: true,
           detail: this.selectedOptions,
         })
@@ -100,24 +102,38 @@ class AppCategoryFilter extends AppComponent {
   }
 
   renderComponent() {
+    this.categoryFilterName.textContent = this.name;
+    this.options.forEach((option) => {
+      this.categoryFilterList.appendChild(this.createAppCheckbox(option));
+    });
+  }
+
+  rerenderName() {
+    this.categoryFilterName.textContent = this.name;
+  }
+
+  rerenderList() {
     this.categoryFilterList.innerHTML = "";
     this.options.forEach((option) => {
       this.categoryFilterList.appendChild(this.createAppCheckbox(option));
     });
   }
 
-  onInputChange = debounce(function ($event) {
+  onInputChange() {
     this.dispatchEvent(
       new CustomEvent("change", { detail: $event.target.value || "" })
     );
-  }, 150);
+  }
 
   connectedCallback() {
     this.setState();
   }
 
   disconnectedCallback() {
-    this.fieldInput.removeEventListener("onchange", this.onInputChange);
+    this.categoryFilterList.removeEventListener(
+      "app-checkbox-changed",
+      this.onAppCheckboxChanged.bind(this)
+    );
   }
 }
 

@@ -1,3 +1,48 @@
+$spaces: (0,5,10,15,20,25,30,35)
+    
+@each $i in $spaces
+    .h-p-#{$i}
+        padding: #{$i}px
+
+    .h-pt-#{$i}
+        padding-top: #{$i}px
+
+    .h-pb-#{$i}
+        padding-bottom: #{$i}px
+
+    .h-pl-#{$i}
+        padding-left: #{$i}px
+
+    .h-pr-#{$i}
+        padding-right: #{$i}px
+
+    .h-ph-#{$i}
+        padding-left: #{$i}px
+        padding-right: #{$i}px
+
+    .h-pv-#{$i}
+        padding-top: #{$i}px
+        padding-bottom: #{$i}px
+
+    .h-m-#{$i}
+        margin: #{$i}px
+
+    .h-mt-#{$i}
+        margin-top: #{$i}px
+
+    .h-mb-#{$i}
+        margin-bottom: #{$i}px
+
+    .h-mr-#{$i}
+        margin-right: #{$i}px
+
+    .h-ml-#{$i}
+        margin-left: #{$i}px
+
+    .h-mh-#{$i}
+        margin-left: #{$i}px
+        margin-right: #{$i}px
+
 .h-flex-vertical-center
     display: flex
     align-items: center

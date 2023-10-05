@@ -63,7 +63,11 @@ class AppCheckbox extends AppComponent {
       new CustomEvent("app-checkbox-changed", {
         bubbles: true,
         composed: true,
-        detail: { key: this.key, value: $event.currentTarget.checked || false },
+        detail: {
+          key: this.key,
+          label: this.label,
+          value: $event.currentTarget.checked || false,
+        },
       })
     );
   }
