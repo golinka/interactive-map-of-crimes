@@ -1,0 +1,53 @@
+@import "../../sass/_variables"
+@import "../../sass/_holsters"
+
+.app-select
+    position: relative
+    cursor: pointer
+    display: flex
+    align-items: center
+    position: relative
+    width: 100%
+    border-radius: 100px
+    border: 1px solid $grey
+    background-color: $white
+    @extends .h-text-body-base
+
+    &::after
+        content: ""
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        right: 15px
+        width: 12px
+        height: 6px
+        background-color: $dark-grey
+        clip-path: path('M11.5892 1.50927L10.4109 0.333435L6.00005 4.74093L1.58922 0.333435L0.410889 1.5126L4.82172 5.91676C5.13427 6.22921 5.55811 6.40474 6.00005 6.40474C6.442 6.40474 6.86584 6.22921 7.17839 5.91676L11.5892 1.50927Z')
+
+    select
+        appearance: none
+        background-color: transparent
+        border: none
+        margin: 0
+        width: 100%
+        height: 45px
+        padding: 8px 35px 8px 20px
+        font-family: inherit
+        font-size: inherit
+        cursor: inherit
+        color: $black
+        line-height: inherit
+        outline: none
+        white-space: nowrap
+        text-overflow: ellipsis
+        overflow: hidden
+        z-index: 1
+
+        &::-ms-expand
+            display: none
+
+    &--disabled
+        cursor: default
+        
+        select
+            color: $dark-grey
