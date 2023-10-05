@@ -67,9 +67,9 @@
         </div>
       </div>
 
-      <div class="filters">
-        <div class="filters__head">
-          <div class="filters__head-field">
+      <div class="sidebar">
+        <div class="sidebar__head">
+          <div class="sidebar__head-field">
             <app-field placeholder="Search" value="My text">
               <div slot="icon" class="h-flex-vertical-center">
                 <app-icon
@@ -81,7 +81,7 @@
               </div>
             </app-field>
           </div>
-          <div class="filters__head-button">
+          <div class="sidebar__head-button">
             <app-icon
               name="filters"
               color="#F0552E"
@@ -89,6 +89,13 @@
               height="27px"
             ></app-icon>
             Filters
+          </div>
+        </div>
+
+        <div class="sidebar__filters">
+          <div class="sidebar__filters-title h-text-heading-1">Filters</div>
+          <div class="sidebar__filters-block">
+            <app-checkbox label="Label" count="123"/>
           </div>
         </div>
       </div>

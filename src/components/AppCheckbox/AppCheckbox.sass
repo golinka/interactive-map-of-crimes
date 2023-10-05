@@ -1,0 +1,66 @@
+@import "../../sass/_variables"
+@import "../../sass/_holsters"
+
+.app-checkbox
+    display: flex
+    align-items: center
+
+    &__input
+        position: relative
+        appearance: none
+        background-color: $white
+        color: red
+        width: 20px
+        height: 20px
+        border-radius: 4px
+        border: 1px solid $grey
+        transform: translateY(-0.075em)
+        margin: 0
+        transition: all 0.3s ease
+
+        &::before 
+            content: ""
+            position: absolute
+            top: -2%
+            left: -5%
+            width: 100%
+            height: 100%
+            opacity: 0
+            transform: scale(0.8)
+            background-color: $white
+            clip-path: path('M17.1024 5.69632L9.97222 15.3724C9.80217 15.598 9.5486 15.7458 9.26849 15.7826C8.98838 15.8195 8.70522 15.7422 8.48264 15.5682L3.39097 11.4974C2.94166 11.1378 2.86891 10.4821 3.22847 10.0328C3.58803 9.58347 4.24375 9.51072 4.69305 9.87028L8.93889 13.2672L15.4253 4.46403C15.638 4.14485 16.0089 3.96838 16.3908 4.00469C16.7726 4.041 17.1036 4.2842 17.2523 4.63775C17.4011 4.99129 17.3435 5.39797 17.1024 5.69632Z')
+            transition: opacity 0.3s ease
+
+
+        &:checked
+            background-color: $primary
+            border-color: $primary
+
+            &::before 
+                opacity: 1
+
+
+        &:focus 
+            outline: none
+
+        &:disabled 
+            cursor: default
+
+    &__label
+        @extend .h-text-body-base
+        flex-grow: 1
+        color: $black
+        margin-left: 12px
+
+    &__count
+        @extend .h-text-body-base
+        color: $grey
+        margin-left: 12px
+
+    &--disabled
+        cursor: default
+
+        .app-checkbox
+            &__label
+                color: $grey
+
