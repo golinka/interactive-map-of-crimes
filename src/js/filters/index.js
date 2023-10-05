@@ -1,4 +1,5 @@
 import { flatten, groupBy } from "lodash";
+import { EVENT_TYPE_COLOR_MAPPING } from "../consts";
 import CategoryFilter from "./category";
 import SelectFilter from "./select";
 
@@ -45,14 +46,44 @@ export default class Filters {
     return [...options, this.categoryFilterOptionAll];
   }
 
-  rerenderResults(count) {
+  updateResults() {
+    this.renderResults(0);
+
+    // Tags
+    const categoryTags = this.categoryFilterSelectedOptions.map((category) => ({
+      label: category.label,
+      type: "category",
+      color: EVENT_TYPE_COLOR_MAPPING[category.key],
+    }));
+
+    this.renderTags([
+      ...categoryTags,
+      { label: "Raped", type: "region" },
+      { label: "Raped", type: "city" },
+    ]);
+  }
+
+  renderResults(count) {
     let appFilterResultsEl = document.querySelector("app-filter-results");
     if (!appFilterResultsEl) {
       appFilterResultsEl = document.createElement("app-filter-results");
       appFilterResultsEl.setAttribute("count", count);
+      appFilterResultsEl.classList.add("h-mb-15", "h-display-block");
       this.filtersEl.appendChild(appFilterResultsEl);
     } else {
       appFilterResultsEl.setAttribute("count", count);
+    }
+  }
+
+  renderTags(tags) {
+    let appFilterTagsEl = document.querySelector("app-filter-tags");
+    if (!appFilterTagsEl) {
+      appFilterTagsEl = document.createElement("app-filter-tags");
+      appFilterTagsEl.setAttribute("tags", JSON.stringify(tags));
+      appFilterTagsEl.classList.add("h-mb-15", "h-display-block");
+      this.filtersEl.appendChild(appFilterTagsEl);
+    } else {
+      appFilterTagsEl.setAttribute("tags", JSON.stringify(tags));
     }
   }
 
@@ -64,8 +95,8 @@ export default class Filters {
     });
 
     categoryFilter.on(CategoryFilter.Events.CHANGED, (data) => {
-      console.log("categoryFilter >> CHANGED", data);
       this.categoryFilterSelectedOptions = data;
+      this.updateResults();
     });
 
     const categoryFilterEl = categoryFilter.render();
@@ -81,6 +112,7 @@ export default class Filters {
 
     regionSelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
       this.regionFilterSelectedOption = data;
+      this.updateResults();
     });
 
     const regionFilterEl = regionSelectFilter.render();
@@ -96,6 +128,7 @@ export default class Filters {
 
     citySelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
       this.cityFilterSelectedOption = data;
+      this.updateResults();
     });
 
     const cityFilterEl = citySelectFilter.render();
@@ -103,6 +136,6 @@ export default class Filters {
     document.querySelector("#filters").appendChild(cityFilterEl);
 
     // Results
-    this.rerenderResults(0);
+    this.updateResults();
   }
 }

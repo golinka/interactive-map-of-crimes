@@ -7,5 +7,6 @@ import "./AppMarkerTypes/AppMarkerTypes";
 import "./AppCategoryFilter/AppCategoryFilter";
 import "./AppSelectFilter/AppSelectFilter";
 import "./AppFilterResults/AppFilterResults";
+import "./AppFilterTags/AppFilterTags";
 
 export default {};

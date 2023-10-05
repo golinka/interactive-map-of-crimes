@@ -1,0 +1,40 @@
+@import "../../sass/_variables"
+@import "../../sass/_holsters"
+
+.app-filter-tags
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+    @extend .h-text-heading-2
+    color: $primary
+
+    &__item
+        display: block
+        max-width: 150px
+        @extend .h-text-body-small
+        height: 26px
+        padding: 4px 12px
+        border-radius: 50px
+        box-sizing: border-box
+        white-space: nowrap
+        text-overflow: ellipsis
+        overflow: hidden
+        margin-bottom: 5px
+        
+        &:not(:last-child)
+            margin-right: 8px
+
+        &--category
+            color: $white
+            border: none
+
+        &--region
+            color: $black
+            border: 1px solid $black
+            background: $white
+
+        &--city
+            color: $black
+            border: 1px solid $grey
+            background: $grey
+

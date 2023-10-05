@@ -7,7 +7,8 @@ export const SIZES = {
 export const MARKER_VALUE_BY_EVENT_TYPE = [19, 30];
 
 export const EVENT_TYPE_COLOR_MAPPING = {
-  19: "#5FE831",
+  "-1": "#999999",
+  19: "#56b736",
   30: "#1A1A1A",
   31: "#852D17",
   32: "#F0552E",
