@@ -77,7 +77,7 @@ class AppCheckbox extends AppComponent {
   }
 
   disconnectedCallback() {
-    this.checkboxInput.removeEventListener.apply("change", this.onChanged);
+    this.checkboxInput.removeEventListener("change", this.onChanged);
   }
 }
 

@@ -5,9 +5,7 @@ const template = document.createElement("template");
 template.innerHTML = `
   <div class="app-category-filter">
     <div class="app-category-filter__name"></div>
-    <div class="app-category-filter__list">
-      <app-checkbox label="Label" />
-    </div>
+    <div class="app-category-filter__list"></div>
   </div>
 `;
 
@@ -50,7 +48,8 @@ class AppCategoryFilter extends AppComponent {
     );
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
+  attributeChangedCallback(name, oldValue) {
+    if (!oldValue) return;
     switch (name) {
       case "name":
         this.rerenderName();
