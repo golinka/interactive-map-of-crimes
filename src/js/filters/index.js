@@ -224,10 +224,7 @@ export default class Filters extends Filter {
       this.regionFilterSelectedOption = data;
       this.updateResults();
 
-      this.citySelectFilter.updateProperty(
-        "options",
-        JSON.stringify([{ value: "konotop", label: "Konopot" }])
-      );
+      this.citySelectFilter.updateProperty("options", JSON.stringify([]));
       this.citySelectFilter.removeProperty("disabled");
     });
 
