@@ -18,6 +18,7 @@ filters = new Filters({
 filters.on(Filters.Events.CHANGED, () => {
   if (map) {
     map.selectedCategories = filters.categoryFilterSelectedOptions;
+    map.events = filters.filteredEventes;
     map.rerenderMap();
   }
 });

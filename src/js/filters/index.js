@@ -24,7 +24,14 @@ export default class Filters extends Filter {
     return flatten(Object.values(this.events));
   }
 
+  get allRegions() {
+    return Object.keys(this.events);
+  }
+
   get allGroupedEvents() {
+    if (this.regionFilterSelectedOption) {
+      return groupBy(this.events[this.regionFilterSelectedOption], "affected_type");
+    }
     return groupBy(this.allEvents, "affected_type");
   }
 
@@ -67,6 +74,14 @@ export default class Filters extends Filter {
     return allEvents;
   }
 
+  get regionPlaceholder() {
+    return "All States"
+  }
+
+  get cityPlaceholder() {
+    return "All Cities / Towns"
+  }
+
   updateResults() {
     this.renderResults(this.filteredEventes.total || 0);
 
@@ -79,8 +94,8 @@ export default class Filters extends Filter {
 
     this.renderTags([
       ...categoryTags,
-      { label: "Raped", type: "region" },
-      { label: "Raped", type: "city" },
+      { label: this.regionFilterSelectedOption || this.regionPlaceholder, type: "region" },
+      { label: this.cityFilterSelectedOption || this.cityPlaceholder, type: "city" },
     ]);
 
     this.emit(Filters.Events.CHANGED);
@@ -153,8 +168,8 @@ export default class Filters extends Filter {
     // Region filter
     const regionSelectFilter = new SelectFilter({
       name: "Region",
-      options: [{ value: "sumy", label: "Sumy" }],
-      placeholder: "All States",
+      options: this.allRegions.map(region => ({ value: region, label: region })),
+      placeholder: this.regionPlaceholder,
     });
 
     regionSelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
@@ -170,7 +185,7 @@ export default class Filters extends Filter {
     const citySelectFilter = new SelectFilter({
       name: "City / Town",
       options: [{ value: "konotop", label: "Konopot" }],
-      placeholder: "All Cities / Towns",
+      placeholder: this.cityPlaceholder,
     });
 
     citySelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
