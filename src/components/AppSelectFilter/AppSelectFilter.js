@@ -28,7 +28,7 @@ class AppSelectFilter extends AppComponent {
   }
 
   static get observedAttributes() {
-    return ["options"];
+    return ["name", "options", "disabled"];
   }
 
   get name() {
@@ -57,12 +57,16 @@ class AppSelectFilter extends AppComponent {
   }
 
   attributeChangedCallback(name, oldValue) {
-    if (!oldValue) return;
     switch (name) {
       case "name":
+        if (!oldValue) return;
         this.rerenderName();
         break;
       case "options":
+        if (!oldValue) return;
+        this.rerenderSelect();
+        break;
+      case "disabled":
         this.rerenderSelect();
         break;
       default:
@@ -114,7 +118,7 @@ class AppSelectFilter extends AppComponent {
       this.createAppSelect({
         placeholder: this.placeholder,
         options: this.options,
-        disabled: this.disabled
+        disabled: this.disabled,
       })
     );
   }

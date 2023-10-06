@@ -94,6 +94,10 @@ export default class Filters extends Filter {
     }));
   }
 
+  get citySelectOptions() {
+    return [];
+  }
+
   get regionPlaceholder() {
     return "All States";
   }
@@ -212,12 +216,19 @@ export default class Filters extends Filter {
     this.regionSelectFilter = new SelectFilter({
       name: "Region",
       options: this.regionSelectOptions,
+      disabled: !this.regionSelectOptions.length,
       placeholder: this.regionPlaceholder,
     });
 
     this.regionSelectFilter.on(SelectFilter.Events.CHANGED, (data) => {
       this.regionFilterSelectedOption = data;
       this.updateResults();
+
+      this.citySelectFilter.updateProperty(
+        "options",
+        JSON.stringify([{ value: "konotop", label: "Konopot" }])
+      );
+      this.citySelectFilter.removeProperty("disabled");
     });
 
     const regionFilterEl = this.regionSelectFilter.render();
@@ -227,7 +238,8 @@ export default class Filters extends Filter {
     // City filter
     this.citySelectFilter = new SelectFilter({
       name: "City / Town",
-      options: [],
+      options: this.citySelectOptions,
+      disabled: !this.citySelectOptions.length,
       placeholder: this.cityPlaceholder,
     });
 

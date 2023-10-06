@@ -1,11 +1,12 @@
 import Filter from "./filter";
 
 export default class SelectFilter extends Filter {
-  constructor({ name, options, placeholder }) {
+  constructor({ name, options, placeholder, disabled }) {
     super();
 
     this.name = name;
     this.options = options || [];
+    this.disabled = !!disabled;
     this.placeholder = placeholder;
 
     this.selectedOption = null;
@@ -16,10 +17,12 @@ export default class SelectFilter extends Filter {
     this.$el.setAttribute("name", this.name);
     this.$el.setAttribute("placeholder", this.placeholder);
 
+    if (this.disabled) {
+      this.$el.setAttribute("disabled", "");
+    }
+
     if (this.options.length) {
       this.$el.setAttribute("options", JSON.stringify(this.options));
-    } else {
-      this.$el.setAttribute("disabled", "");
     }
 
     this.$el.addEventListener(

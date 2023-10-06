@@ -24,6 +24,10 @@ class AppSelect extends AppComponent {
     );
   }
 
+  static get observedAttributes() {
+    return ["disabled"];
+  }
+
   get placeholder() {
     return this.getAttribute("placeholder");
   }
@@ -34,6 +38,19 @@ class AppSelect extends AppComponent {
 
   get disabled() {
     return this.hasAttribute("disabled");
+  }
+
+  attributeChangedCallback(name, _oldValue, newValue) {
+    switch (name) {
+      case "disabled":
+        if (!newValue) {
+          this.selectInput.removeAttribute("disabled");
+          this.select.classList.remove(["app-select--disabled"]);
+        }
+        break;
+      default:
+        break;
+    }
   }
 
   setState() {
