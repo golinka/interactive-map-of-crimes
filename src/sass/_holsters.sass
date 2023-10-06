@@ -43,6 +43,13 @@ $spaces: (0,5,10,15,20,25,30,35)
         margin-left: #{$i}px
         margin-right: #{$i}px
 
+.h-hide-scrollbar
+    -ms-overflow-style: none
+    scrollbar-width: none
+
+    &::-webkit-scrollbar
+        display: none
+
 .h-display-block
     display: block
 

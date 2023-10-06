@@ -3,8 +3,9 @@
 
 .app-marker-types
     display: flex
-    flex-wrap: wrap
+    overflow-x: scroll
     margin: 0
+    padding-left: 32px
 
     &__type
         display: flex
@@ -35,3 +36,6 @@
             
         &:not(:last-child)
             margin-right: 36px
+
+            @media screen and (max-width: 1200px)
+                margin-right: 15px

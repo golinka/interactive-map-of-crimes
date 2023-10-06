@@ -3,7 +3,7 @@ import AppMarkerTypesStyles from "./AppMarkerTypes.sass?inline";
 
 const template = document.createElement("template");
 template.innerHTML = `
-  <div class="app-marker-types"></div>
+  <div class="app-marker-types h-hide-scrollbar"></div>
 `;
 
 class AppMarkerTypes extends AppComponent {

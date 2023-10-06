@@ -155,6 +155,29 @@ export default class Filters extends Filter {
     }
   }
 
+  addFilterButtonHandler(tags) {
+    const sidebarEl = document.querySelector("#sidebar");
+    const filterBlockButton = document.querySelector("#filters-button");
+    if (filterBlockButton && sidebarEl) {
+      filterBlockButton.addEventListener("click", () => {
+        if (sidebarEl.classList.contains("sidebar--opened")) {
+          sidebarEl.style.top = "calc(100vh - 115px)";
+          setTimeout(() => {
+            sidebarEl.classList.remove("sidebar--opened", "sidebar--fixed");
+            sidebarEl.style.top = "";
+          }, 350);
+          return;
+        }
+
+        sidebarEl.classList.add("sidebar--opened");
+        setTimeout(() => {
+          sidebarEl.classList.add("sidebar--fixed");
+        }, 350);
+      });
+      return;
+    }
+  }
+
   renderClearButton() {
     const appButtonEl = document.createElement("app-button");
     appButtonEl.setAttribute("type", "secondary");
@@ -197,6 +220,8 @@ export default class Filters extends Filter {
   }
 
   render() {
+    this.addFilterButtonHandler();
+
     // Category filter
     this.categoryFilter = new CategoryFilter({
       name: "Category",

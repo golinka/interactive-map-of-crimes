@@ -12,6 +12,7 @@ body
     background: black
 
 .app
+    position: relative
     display: flex
     height: 100vh
 
@@ -28,6 +29,9 @@ body
         width: 100%
         height: 180px
 
+        @media screen and (max-width: 1440px)
+            height: 100px
+
     &__links
         top: 0
         justify-content: flex-end
@@ -39,6 +43,9 @@ body
             right: 0
             display: flex
             padding-right: 24px
+
+            @media screen and (max-width: 1440px)
+                top: 25px
 
             li
                 a
@@ -55,10 +62,14 @@ body
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.50))
 
         app-marker-types
+            width: 100%
             position: absolute
             bottom: 32px
             left: 0
-            padding-left: 32px
+            overflow-x: scroll
+
+            @media screen and (max-width: 1440px)
+                bottom: 15px
 
     object
         width: 100%
@@ -66,15 +77,39 @@ body
 
 .sidebar
     width: 490px
+    min-width: 490px
     height: 100%
     background-color: $white
     overflow-y: scroll
+    transition: top 0.3s ease, border-radius 0.1s ease
+
+    @media screen and (max-width: 1200px)
+        width: 350px
+        min-width: 350px
+
+    @media screen and (max-width: 767px)
+        position: absolute
+        top: calc(100vh - 115px)
+        left: 0
+        width: 100%
+        height: 120px
+        overflow: hidden
+        border-top-left-radius: 25px
+        border-top-right-radius: 25px
 
     &__head
         display: flex
         align-items: center
         padding: 30px 25px 30px 45px
         border-bottom: 1px solid $grey
+
+        @media screen and (max-width: 1200px)
+            padding: 15px 25px
+
+        @media screen and (max-width: 767px)
+            border-radius: 50px
+            padding: 32px 35px
+            border-bottom: none
 
         &-field
             flex-grow: 1
@@ -95,8 +130,25 @@ body
     &__filters
         padding: 30px 42px 30px 48px
 
+        @media screen and (max-width: 1200px)
+            padding: 15px 25px
+
+        @media screen and (max-width: 767px)
+            padding: 15px 35px
+
         &-title
             margin-bottom: 25px
+
+    @media screen and (max-width: 767px)
+        &--opened
+            height: 100vh
+            top: 0
+            border-radius: 0
+            overflow: scroll
+
+        &--fixed
+            position: fixed
+
 
 .navigation-bar
     display: flex

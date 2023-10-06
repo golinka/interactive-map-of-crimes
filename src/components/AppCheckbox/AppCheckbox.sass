@@ -48,16 +48,20 @@
             cursor: default
 
     &__label
-        @extend .h-text-body-base
         flex-grow: 1
-        color: $black
-        margin-left: 12px
 
+    &__label,
     &__count
         @extend .h-text-body-base
         color: $black
-        opacity: 0.3
         margin-left: 12px
+
+        @media screen and (max-width: 900px)
+            font-size: 12px
+            line-height: 16px
+
+    &__count
+        opacity: 0.3
 
     &--disabled
         cursor: default
