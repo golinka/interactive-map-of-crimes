@@ -1,3 +1,5 @@
+import "../../assets/map.svg";
+import "../../assets/map.png";
 import {
   EVENT_TYPE_COLOR_MAPPING,
   EVENT_TYPE_SIZE_MAPPING,

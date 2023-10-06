@@ -26,7 +26,7 @@ class AppMarkerTypes extends AppComponent {
 
     this.types.forEach((type) => {
       const typeEl = document.createElement("div");
-      typeEl.classList.add("app-marker-types__type", `app-marker-types__type--${type.color}`);
+      typeEl.classList.add("app-marker-types__type");
 
       const typeCircleEl = document.createElement("div");
       typeCircleEl.classList.add("app-marker-types__type-circle");

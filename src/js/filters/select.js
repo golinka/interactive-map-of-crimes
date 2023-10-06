@@ -4,7 +4,6 @@ export default class SelectFilter extends Filter {
   constructor({ name, options, placeholder }) {
     super();
 
-    this.$el = null;
     this.name = name;
     this.options = options;
     this.placeholder = placeholder;
@@ -21,10 +20,6 @@ export default class SelectFilter extends Filter {
     this.$el.addEventListener("app-select-filter-changed", this.onFilterChanged);
 
     return this.$el;
-  }
-
-  updateProperty(name, data) {
-    this.$el.setAttribute(name, data);
   }
 
   onFilterChanged = function ($event) {

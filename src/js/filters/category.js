@@ -4,7 +4,6 @@ export default class CategoryFilter extends Filter {
   constructor({ name, options }) {
     super();
 
-    this.$el = null;
     this.name = name;
     this.options = options;
 
@@ -22,10 +21,6 @@ export default class CategoryFilter extends Filter {
     );
 
     return this.$el;
-  }
-
-  updateProperty(name, data) {
-    this.$el.setAttribute(name, data);
   }
 
   onFilterChanged = function ($event) {
