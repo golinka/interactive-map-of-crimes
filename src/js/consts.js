@@ -4,8 +4,6 @@ export const SIZES = {
   SMALL: "small",
 };
 
-export const MARKER_VALUE_BY_EVENT_TYPE = [19, 30];
-
 export const EVENT_TYPE_COLOR_MAPPING = {
   "-1": "#999999",
   19: "#56b736",

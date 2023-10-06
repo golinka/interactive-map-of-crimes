@@ -1,10 +1,13 @@
 import { flatten, groupBy } from "lodash";
 import { EVENT_TYPE_COLOR_MAPPING } from "../consts";
+import Filter from "./filter";
 import CategoryFilter from "./category";
 import SelectFilter from "./select";
 
-export default class Filters {
+export default class Filters extends Filter {
   constructor({ events, names }) {
+    super();
+
     this.filtersEl = document.querySelector("#filters");
     this.events = events;
     this.names = names;
@@ -39,15 +42,33 @@ export default class Filters {
 
   get categoryFiltersOptions() {
     const options = Object.keys(this.crimeTypes || []).map((crimeId) => ({
-      key: `${crimeId}`,
+      key: String(crimeId),
       label: this.crimeTypes[crimeId],
       count: (this.allGroupedEvents[crimeId] || []).length || 0,
     }));
     return [...options, this.categoryFilterOptionAll];
   }
 
+  get filteredEventes() {
+    let allEvents = { ...this.allGroupedEvents, total: this.allEvents.length };
+
+    const isShowAllEvents = !!this.categoryFilterSelectedOptions.find(
+      (option) => option.key === String(this.categoryFilterOptionAll.key)
+    );
+    if (!isShowAllEvents && this.categoryFilterSelectedOptions.length) {
+      allEvents = this.categoryFilterSelectedOptions.reduce((acc, crime) => {
+        const events = this.allGroupedEvents[Number(crime.key)] || [];
+        acc[crime.key] = events;
+        acc.total = (acc.total || 0) + events.length;
+        return acc;
+      }, {});
+    }
+
+    return allEvents;
+  }
+
   updateResults() {
-    this.renderResults(0);
+    this.renderResults(this.filteredEventes.total || 0);
 
     // Tags
     const categoryTags = this.categoryFilterSelectedOptions.map((category) => ({
@@ -62,8 +83,7 @@ export default class Filters {
       { label: "Raped", type: "city" },
     ]);
 
-    // Button
-    this.renderClearButton();
+    this.emit(Filters.Events.CHANGED);
   }
 
   renderResults(count) {
@@ -164,5 +184,8 @@ export default class Filters {
 
     // Results
     this.updateResults();
+
+    // Button
+    this.renderClearButton();
   }
 }

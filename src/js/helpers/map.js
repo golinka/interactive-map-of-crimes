@@ -7,39 +7,6 @@ const BOTTOM_RIGHT_MAP_LAT_LON = [43.91221, 44.62032];
 
 const EARTH_RADIUS = 6371;
 
-export function addCircle({ x, y, amount, parentEl, size, color }) {
-  const svgNS = "http://www.w3.org/2000/svg";
-
-  // Create a group
-  const group = document.createElementNS(svgNS, "g");
-
-  // Add circle
-  const circle = document.createElementNS(svgNS, "circle");
-  circle.setAttribute("cx", x);
-  circle.setAttribute("cy", y);
-  circle.setAttribute("r", size / 2);
-  circle.setAttribute("fill", color);
-  circle.setAttribute("stroke", "white");
-  circle.setAttribute("stroke-width", "1");
-  circle.setAttribute("opacity", "0.6");
-  group.appendChild(circle);
-
-  // Add text
-  if (amount) {
-    const text = document.createElementNS(svgNS, "text");
-    text.setAttribute("x", x);
-    text.setAttribute("y", y);
-    text.setAttribute("text-anchor", "middle");
-    text.setAttribute("alignment-baseline", "middle");
-    text.setAttribute("fill", "white");
-    text.setAttribute("font-size", "12px");
-    text.textContent = amount;
-    group.appendChild(text);
-  }
-
-  parentEl.appendChild(group);
-}
-
 export function getPosition(lat, lon) {
   const svg = document.querySelector("#map").getSVGDocument();
   const svgImageEl = svg.querySelector("image");
