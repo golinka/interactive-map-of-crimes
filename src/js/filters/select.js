@@ -5,7 +5,7 @@ export default class SelectFilter extends Filter {
     super();
 
     this.name = name;
-    this.options = options;
+    this.options = options || [];
     this.placeholder = placeholder;
 
     this.selectedOption = null;
@@ -15,9 +15,17 @@ export default class SelectFilter extends Filter {
     this.$el = document.createElement("app-select-filter");
     this.$el.setAttribute("name", this.name);
     this.$el.setAttribute("placeholder", this.placeholder);
-    this.$el.setAttribute("options", JSON.stringify(this.options));
 
-    this.$el.addEventListener("app-select-filter-changed", this.onFilterChanged);
+    if (this.options.length) {
+      this.$el.setAttribute("options", JSON.stringify(this.options));
+    } else {
+      this.$el.setAttribute("disabled", "");
+    }
+
+    this.$el.addEventListener(
+      "app-select-filter-changed",
+      this.onFilterChanged
+    );
 
     return this.$el;
   }

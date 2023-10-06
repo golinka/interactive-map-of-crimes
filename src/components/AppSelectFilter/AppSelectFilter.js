@@ -43,6 +43,10 @@ class AppSelectFilter extends AppComponent {
     return this.getDataFromAttribute("options") || [];
   }
 
+  get disabled() {
+    return this.hasAttribute("disabled");
+  }
+
   setState() {
     this.renderComponent();
     this.selectFilterName.textContent = this.name;
@@ -87,8 +91,9 @@ class AppSelectFilter extends AppComponent {
     }
   }.bind(this);
 
-  createAppSelect({ placeholder, options = [] } = {}) {
+  createAppSelect({ placeholder, options = [], disabled } = {}) {
     const appSelect = document.createElement("app-select");
+    if (disabled) appSelect.setAttribute("disabled", "");
     if (placeholder) appSelect.setAttribute("placeholder", placeholder);
     if (options) appSelect.setAttribute("options", JSON.stringify(options));
     return appSelect;
@@ -109,6 +114,7 @@ class AppSelectFilter extends AppComponent {
       this.createAppSelect({
         placeholder: this.placeholder,
         options: this.options,
+        disabled: this.disabled
       })
     );
   }

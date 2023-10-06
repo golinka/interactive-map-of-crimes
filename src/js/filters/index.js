@@ -227,7 +227,7 @@ export default class Filters extends Filter {
     // City filter
     this.citySelectFilter = new SelectFilter({
       name: "City / Town",
-      options: [{ value: "konotop", label: "Konopot" }],
+      options: [],
       placeholder: this.cityPlaceholder,
     });
 

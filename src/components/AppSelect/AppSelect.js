@@ -32,11 +32,15 @@ class AppSelect extends AppComponent {
     return this.getDataFromAttribute("options") || [];
   }
 
+  get disabled() {
+    return this.hasAttribute("disabled");
+  }
+
   setState() {
     if (!this.options.length)
       console.error("AppSelect: the options attribute must be specified");
 
-    if (this.hasAttribute("disabled")) {
+    if (this.disabled) {
       this.selectInput.setAttribute("disabled", "");
       this.select.classList.add("app-select--disabled");
     }
