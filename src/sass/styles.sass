@@ -37,6 +37,30 @@ body
         justify-content: flex-end
         background: linear-gradient(to top, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.50))
 
+        &-button
+            display: none
+            position: absolute
+            top: 30px
+            left: 15px
+            width: 40px
+            height: 40px
+            z-index: $z-indx-menu-button
+
+            @media screen and (max-width: 767px)
+                display: block
+
+        &-logo
+            display: none
+            position: absolute
+            top: 15px
+            left: 50%
+            transform: translateX(-50%)
+            width: 30px
+            height: 56px
+
+            @media screen and (max-width: 767px)
+                display: block
+
         &-list
             position: absolute
             top: 42px
@@ -47,6 +71,18 @@ body
             @media screen and (max-width: 1440px)
                 top: 25px
 
+            @media screen and (max-width: 767px)
+                display: none
+                position: fixed
+                top: 0
+                left: 0
+                width: 100vw
+                height: 100vh
+                flex-direction: column
+                padding: 80px
+                background-color: $black
+                z-index: $z-indx-menu
+
             li
                 a
                     color: $white
@@ -54,12 +90,28 @@ body
                     font-weight: 300
                     line-height: 16px
 
+                    @media screen and (max-width: 767px)
+                        font-size: 20px
+                        font-style: normal
+                        font-weight: 500
+                        line-height: 40px
+
                 &:not(:last-child)
                     margin-right: 36px
+
+        &--opened
+            .map
+                &__links
+                    &-list
+                        display: block
 
     &__crimes
         bottom: 0
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.50))
+
+        @media screen and (max-width: 767px)
+            bottom: 115px
+            z-index: $z-indx-types
 
         app-marker-types
             width: 100%
@@ -96,6 +148,7 @@ body
         overflow: hidden
         border-top-left-radius: 25px
         border-top-right-radius: 25px
+        z-index: $z-indx-filters
 
     &__head
         display: flex
@@ -145,6 +198,7 @@ body
             top: 0
             border-radius: 0
             overflow: scroll
+            z-index: $z-indx-menu-button
 
         &--fixed
             position: fixed
@@ -159,6 +213,18 @@ body
     padding: 20px 10px 32px
     background-color: $black
 
+    @media screen and (max-width: 767px)
+        position: absolute
+        bottom: 0
+        left: 0
+        height: 450px
+        background-color: transparent
+        z-index: $z-indx-bar
+
+    &__logo
+        @media screen and (max-width: 767px)
+            display: none
+
     &__links
         display: flex
         flex-direction: column
@@ -169,3 +235,10 @@ body
         &-item
             &:not(:last-child)
                 margin-bottom: 32px
+
+                @media screen and (max-width: 767px)
+                    margin-bottom: 20px
+
+    &__button
+        @media screen and (max-width: 767px)
+            display: none

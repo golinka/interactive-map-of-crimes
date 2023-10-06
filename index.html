@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Map</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   </head>
@@ -52,8 +52,23 @@
       </div>
 
       <div class="map">
-        <object id="map" data="/src/assets/map.svg"></object>
-        <div class="map__links">
+        <object id="map" data="/assets/map.svg"></object>
+        <div id="menu-links" class="map__links">
+          <div id="menu-button" class="map__links-button">
+            <app-icon
+              name="menu"
+              width="40px"
+              height="40px"
+            ></app-icon>
+          </div>
+          <div class="map__links-logo">
+            <app-icon
+              name="logo"
+              color="white"
+              width="30px"
+              height="56px"
+            ></app-icon>
+          </div>
           <ul class="map__links-list">
             <li><a href="#help">Help Ukraine</a></li>
             <li><a href="#login">Log in</a></li>

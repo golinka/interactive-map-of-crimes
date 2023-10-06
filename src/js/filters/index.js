@@ -155,7 +155,7 @@ export default class Filters extends Filter {
     }
   }
 
-  addFilterButtonHandler(tags) {
+  addFilterButtonHandler() {
     const sidebarEl = document.querySelector("#sidebar");
     const filterBlockButton = document.querySelector("#filters-button");
     if (filterBlockButton && sidebarEl) {
@@ -173,6 +173,29 @@ export default class Filters extends Filter {
         setTimeout(() => {
           sidebarEl.classList.add("sidebar--fixed");
         }, 350);
+      });
+      return;
+    }
+  }
+
+  addMenuButtonHandler() {
+    const menuButtonEl = document.querySelector("#menu-button");
+    const menuLinksEl = document.querySelector("#menu-links");
+    if (menuButtonEl && menuLinksEl) {
+      menuButtonEl.addEventListener("click", () => {
+        if (menuLinksEl.classList.contains("map__links--opened")) {
+          menuLinksEl.classList.remove("map__links--opened");
+          // setTimeout(() => {
+          //   sidebarEl.classList.remove("sidebar--opened", "sidebar--fixed");
+          //   sidebarEl.style.top = "";
+          // }, 350);
+          return;
+        }
+
+        menuLinksEl.classList.add("map__links--opened");
+        // setTimeout(() => {
+        //   sidebarEl.classList.add("sidebar--fixed");
+        // }, 350);
       });
       return;
     }
@@ -221,6 +244,7 @@ export default class Filters extends Filter {
 
   render() {
     this.addFilterButtonHandler();
+    this.addMenuButtonHandler();
 
     // Category filter
     this.categoryFilter = new CategoryFilter({
